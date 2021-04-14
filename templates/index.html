@@ -1,0 +1,84 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'items.css' %}">
+
+<!-- CLOSE MAIN -->
+</div>
+<div class="col-xs-12 col-md-2"></div>
+
+
+<div class="col-xs-12 intro parallax" style="background: url('https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_1920,h_1080/project%20prism%2Fcolor%20search%20archive%2F097582521330eb089128dccf696bd857bb9d1121')">
+	<h1>{{ lang.title }}</h1>
+	<h2>{{ lang.slogan }}</h2>
+
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8 edger bottom"></div>
+	<div class="col-xs-2"></div>
+
+</div>
+<div class="col-xs-12 intro-spacer"></div>
+
+
+
+
+<div class="col-xs-12 col-md-2"></div>
+<div class="col-xs-12 col-md-8 main">
+
+
+	{% if featured %}
+	<h2>{{ lang.featured }}</h2>
+	<div class="col-xs-12">
+		{% for item in featured %}
+	        {% include "item.html" %}
+		{% endfor %}
+	</div>
+	{% endif %}
+
+	<h2>{{ lang.most_popular }}</h2>
+	<div class="col-xs-12">
+		{% for item in most_popular %}
+	        {% include "item.html" %}
+		{% endfor %}
+	</div>
+
+<!-- CLOSE MAIN -->
+</div>
+<div class="col-md-2 col-xs-12"></div>
+
+<div class="col-xs-12 top-sales parallax" style="background: url('https://www.scarletsky.de/images/scarletskyde/621-my-night-as-the-wolf-of-wall-street-financial-times-2657.jpg')">
+
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8 edger top"></div>
+	<div class="col-xs-2"></div>
+	
+	<h2>{{ lang.title2 }}</h2>
+	<h3>{{ lang.sub_title2 }}</h3>
+
+	<div class="col-xs-2"></div>
+	<div class="col-xs-8 edger bottom"></div>
+	<div class="col-xs-2"></div>
+
+</div>
+
+
+<div class="col-xs-12 col-md-2"></div>
+<div class="col-xs-12 col-md-8 main">
+
+<h2>{{ lang.top_sales }}</h2>
+<div class="col-xs-12">
+	{% for item in sales %}
+        {% include "item.html" %}
+	{% endfor %}
+</div>
+
+<h2>{{ lang.our_partners }}</h2>
+
+
+
+
+
+
+
+
+{% include "navbar/footer.html" %}

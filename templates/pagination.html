@@ -1,0 +1,25 @@
+<div class="pagination noselect">
+    <span class="step-links">
+        {% if products.has_previous %}
+            <a href="?page=1"><i class="fas fa-chevron-circle-left"></i></a>
+            <a href="?page={{ products.previous_page_number }}"><i class="fas fa-angle-left"></i></a>
+        {% else %}
+            <i class="fas fa-chevron-circle-left"></i>
+            <i class="fas fa-angle-left"></i>
+        {% endif %}
+
+        <div class="current">
+            <span class="">
+                {{ products.number }} / {{ products.paginator.num_pages }}
+            </span>
+        </div>
+
+        {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}"><i class="fas fa-angle-right"></i></a>
+            <a href="?page={{ products.paginator.num_pages }}"><i class="fas fa-chevron-circle-right"></i></a>
+        {% else %}
+            <i class="fas fa-angle-right"></i>
+            <i class="fas fa-chevron-circle-right"></i>
+        {% endif %}
+    </span>
+</div>

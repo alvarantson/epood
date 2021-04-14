@@ -1,0 +1,148 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'browser.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'items.css' %}">
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js"></script>
+
+<!-- CLOSE MAIN -->
+</div>
+<div class="col-xs-12 col-md-2"></div>
+
+
+<div class="col-xs-12 intro parallax" style="background: url('https://images.livemint.com/img/2020/05/04/600x338/LSleadpic_1588607357263_1588607357496.jpg')">
+    {% if main_cat %}
+    <h2>{{ main_cat.name }}</h2>
+    {% else %}
+    <h2>{{ lang.title }}</h2>
+    {% endif %}
+
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8 edger bottom"></div>
+    <div class="col-xs-2"></div>
+
+</div>
+<div class="col-xs-12 intro-spacer"></div>
+
+
+
+
+<div class="col-xs-12 col-md-2"></div>
+<div class="col-xs-12 col-md-8 main">
+
+
+
+<div class="col-xs-12 filters">
+    
+    <form method="POST">{% csrf_token %}
+        <div class="col-xs-12 col-md-4"><input type="text" name="product_name" placeholder="{{ lang.product_name }}" value="{{ request.session.product_filters.product_name }}"></div>
+        <div class="col-xs-12 col-md-4"><input type="text" name="product_code" placeholder="{{ lang.product_code }}" value="{{ request.session.product_filters.product_code }}"></div>
+        <div class="col-xs-12 col-md-4"><input type="text" name="brand_name" placeholder="{{ lang.brand_name }}" value="{{ request.session.product_filters.brand_name }}"></div>
+        <br>
+        <div class="col-xs-12 boolean">
+            <label for="discounts_boolean">
+                <input id="discounts_boolean" type="checkbox" name="discounts_boolean" {% if request.session.product_filters.discounts_boolean %}checked{% endif %}>
+                Sooduskaubad ainult</input>
+            </label>
+        </div>
+
+
+        <div class="col-xs-12 slider-container">
+
+            <!-- https://seiyria.com/bootstrap-slider/ -->
+
+            <div class="col-xs-1"></div>
+
+            <div class="col-xs-2 indicator">
+                <b>€ <span id="min_price_indicator">0</span></b> 
+            </div>
+
+            <div class="col-xs-6">
+                <input id="price-slider" onchange="sliderprice()" type="text" class="span2" value="" data-slider-min="0" data-slider-max="100000" data-slider-step="1" data-slider-value="[{{ request.session.product_filters.min_price }},{{ request.session.product_filters.max_price }}]"/> 
+            </div>
+
+            <div class="col-xs-2 indicator">
+                <b>€ <span id="max_price_indicator">100000</span></b> 
+            </div>
+            
+            <div class="col-xs-1"></div>
+            
+            
+            
+
+
+
+            <script type="text/javascript">
+                $("#price-slider").slider({
+                    id: "price-slider-slider",
+                    scale: 'logarithmic',
+                    range: true
+                });
+                function sliderprice() {
+                    $("#min_price").attr("value",$("#price-slider").val().split(",")[0]);
+                    $("#max_price").attr("value",$("#price-slider").val().split(",")[1]);
+
+                    $("#min_price_indicator").text($("#price-slider").val().split(",")[0]);
+                    $("#max_price_indicator").text($("#price-slider").val().split(",")[1]);
+                }
+                $("#min_price_indicator").text($("#price-slider").val().split(",")[0]);
+                $("#max_price_indicator").text($("#price-slider").val().split(",")[1]);
+            </script>
+        </div>
+
+
+        <br>
+
+        <input id="min_price" type="hidden" name="product_min_price" placeholder="min price" value="{{ request.session.product_filters.min_price }}">
+        <input id="max_price" type="hidden" name="product_max_price" placeholder="max price" value="{{ request.session.product_filters.max_price }}">
+
+        <br>
+        <button type="submit" name="submit-btn" value="product_filters">{{ lang.search }}</button>
+        <a href="/browser/reset/" class="button invert">
+            {{ lang.reset_filters }}
+        </a>
+    </form>
+
+
+
+
+    {% if sub_categories %}
+    <button id="categories-button" data-toggle="collapse" data-target="#sub_categories" onclick="$(this).toggleClass('invert');">
+        {{ lang.sub_categories }}
+    </button>
+
+
+
+    <div id="sub_categories" class="col-xs-12 collapse">
+        {% for sub_cat in sub_categories %}
+            <div class="col-xs-3 sub_cat">
+                <a href="/browser/categories/{{ main_cat.code }}/{{ sub_cat.code }}">
+                    <div class="col-xs-12">
+                        <p><br>{{ sub_cat.name }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'pagination.css' %}">
+    <div class="col-xs-12 paginator">
+    {% include "pagination.html" %}
+    </div>
+</div>
+
+
+
+<div class="col-xs-12 products">
+    {% for item in products %}
+        {% include "item.html" %}
+    {% endfor %}
+</div>
+
+
+{% include "navbar/footer.html" %}

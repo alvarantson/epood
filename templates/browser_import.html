@@ -1,0 +1,87 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+<br><br><br>
+<div class="col-xs-4">
+<a href="/haldus" class="button">Tagasi haldusesse</a><br><br>
+<h4>Impordi tooteid</h4>
+<form method="POST">{% csrf_token %}
+	<label>
+		Kustutada kõik eelnevad tooted?
+		<input type="checkbox" name="delete-all">
+	</label>
+	<br>
+	<label>
+		Motoral
+		<input type="radio" name="import-motoral" checked>
+	</label>
+	<br>
+	<button type="submit" name="submit-btn" value="import-products" onclick="loader()">
+		IMPORDI
+	</button>
+</form>
+{% if imported_recap.0 != 0 or imported_recap.1 != 0 or imported_recap.2 != 0 %}
+<h4>Lisatud: {{ imported_recap.0 }},muudetud: {{ imported_recap.1 }},ei saanud lisada: {{ imported_recap.2 }}</h4>
+{% endif %}
+<h4>Impordi kategooriaid</h4>
+<form method="POST">{% csrf_token %}
+	<label>
+		Kustutada kõik eelnevad kategooriad?
+		<input type="checkbox" name="delete-all">
+	</label>
+	<br>
+	<label>
+		Motoral
+		<input type="radio" name="import-motoral" checked>
+	</label>
+	<br>
+	<button type="submit" name="submit-btn" value="import-categories" onclick="loader()">
+		IMPORDI
+	</button>
+</form>
+
+<h4>Otsi duplikaadid toodetes</h4>
+<form method="POST">{% csrf_token %}
+	<button type="submit" name="submit-btn" value="find-duplicates" onclick="loader()">
+		OTSI
+	</button>
+</form>
+
+<h4>Kustuta duplikaadid</h4>
+<form method="POST">{% csrf_token %}
+	<button type="submit" name="submit-btn" value="remove-duplicates" onclick="loader()">
+		KUSTUTA
+	</button>
+</form>
+</div>
+<div class="col-xs-8">
+{% if duplicates.0 %}
+<h4>Duplikaatide arv: {{ duplicates|length }}</h4>
+<table class="table">
+	<thead>
+		<tr>
+			<th>kood</th>
+			<th>kategooria</th>
+			<th>nimi</th>
+			<th>hind</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in duplicates %}
+		<tr>
+			<th>{{ item.code }}</th>
+			<td>{{ item.cat }}</td>
+			<td></td>
+			<td>{{ item.price }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endif %}
+
+<br>
+<h3>Tooteid hetkel: {{ amount_of_products }}</h3>
+<h3>Kategooriaid hetkel: {{ amount_of_categories }}</h3>
+</div>
+<br><br><br>
+{% include "navbar/footer.html" %}

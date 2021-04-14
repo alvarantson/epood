@@ -1,0 +1,37 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'checkout.css' %}">
+
+<div class="col-xs-12 charge">
+	<h1>Muugistatistika</h1>
+	<h3>
+		Kokku tulu: 
+		<b>{{ total_sales }} €</b>, 
+		Kokku myynud: 
+		<b>{{ total_sold }} tk</b>
+	</h3>
+	<br><br>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>kood</th>
+				<th>#</th>
+				<th>hind</th>
+				<th>nimi</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in items %}
+			<tr>
+				<td>{{ item.product.code }}</td>
+				<td>{{ item.product.bought }}</td>
+				<td>{{ item.product.price }} €</td>
+				<td><a target="_blank" href="/browser/product/{{ item.product.code }}">{{ item.name }}</a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+
+{% include "navbar/footer.html" %}

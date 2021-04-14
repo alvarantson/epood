@@ -1,0 +1,12 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'checkout.css' %}">
+
+<div class="col-xs-12 charge">
+	<h1>SUCCESS</h1>
+	<h3><a href="/">Back to the frontpage</a></h3>
+	{{ receipt|safe }}
+</div>
+
+
+{% include "navbar/footer.html" %}

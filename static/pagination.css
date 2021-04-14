@@ -1,0 +1,13 @@
+.pagination {
+	margin: 0;
+}
+.pagination i {
+	color: var(--border);
+}
+.pagination a i {
+	color: var(--blue)
+}
+.pagination .current {
+	width: 10em;
+	display: inline-block;
+}

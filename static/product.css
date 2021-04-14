@@ -1,0 +1,61 @@
+.desktop-navbar-spacer {
+	font-size: 8em;
+}
+
+.product h1 {
+	font-size: 2em;
+}
+.product h3 {
+	font-size: 1.5em;
+}
+
+.product .additional-info {
+	color: gray;
+}
+.product .info,
+.product .image-container {
+	min-height: 35em;
+}
+.product .image-container img {
+	max-width: 100%;
+	max-height: 35em;
+	display: block;
+	margin: auto;
+}
+.product .brand-image img {
+	max-height: 4em;
+}
+.product .info .icon {
+	text-align: center;
+}
+.product .info .value {
+	font-size: 1.75em;
+}
+.product .info .table i {
+	font-size: 2.25em;
+}
+
+.black {
+	color: gray;
+}
+.product .info .price h3{
+	color: var(--blue);
+	font-size: 2em;
+}
+.product .info .special_price {
+	color: red !important;
+}
+.product .info .special_price strike {
+	color: var(--blue);
+}
+
+.product .bottom {
+	margin-top: 1em;
+	margin-bottom: 5em;
+	text-align: center;
+	border-bottom: solid 1px var(--border);
+}
+
+.phone-main {
+	text-align: center;
+}

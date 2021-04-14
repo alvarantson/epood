@@ -1,0 +1,104 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'checkout.css' %}">
+
+<div class="col-xs-12 checkout">
+	{% if items.0 %}
+	<div class="col-xs-12 col-md-6">
+		{% if qty_error.0 %}<h4 class="error">{{ lang.over_qty }}!</h4>{% endif %}
+		<table class="table table-borderless">
+			<tbody>
+				{% for item in items %}
+					<tr class="{% if item.code in qty_error %}danger{% endif %}">
+
+						<script type="text/javascript">
+							function qtyurl_{{ item.code|cut:"-" }}() {
+								if ($("#item-{{ item.code }}-QTY-input").val() > {{ item.stock }}) {$("#item-{{ item.code }}-QTY-input").val('{{ item.stock }}')};
+								$('#item-{{ item.code }}-QTY').attr("href", "/checkout/qty/{{ item.code }}/"+String($('#item-{{ item.code }}-QTY-input').val()));
+							}
+						</script>
+						{% if item.price == item.old_price %}
+						<td>{{ item.price|floatformat:2 }}€</td>
+						{% else %}
+						<td><span class="new-price-navbar">{{ item.price|floatformat:2 }}€</span> | <strike>{{ item.old_price|floatformat:2 }}€</strike></td>
+						{% endif %}
+						<td><a href="/browser/product/{{ item.code }}">{{ item.name }}</a></td>
+						<td><input id="item-{{ item.code }}-QTY-input" onchange="qtyurl_{{ item.code|cut:"-" }}()" class="qty" type="number" name="item-{{ item.code }}-QTY" value="{{ item.qty }}" max="{{ item.stock }}">
+						</td>
+						<td>
+							<a id="item-{{ item.code }}-QTY" href="/checkout/qty/{{ item.code }}/{{ item.qty }}"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+						</td>
+						<td>
+							<a href="/checkout/remove/{{ item.code }}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
+						</td>
+					</tr>
+				{% endfor %}
+					<tr class="final">
+						<td><b>{{ lang.total }}:</b></td>
+						<td><b><span id="price-total"></span>€</b></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<script type="text/javascript">
+						var total_price = 0;
+						{% for item in items %}
+						total_price += {{ item.price }}*{{ item.qty }}
+						{% endfor %}
+						$('#price-total').text(total_price)
+					</script>
+			</tbody>
+		</table>
+			
+	</div>
+	<div class="col-xs-12 col-md-6">
+		<form action="{% url 'charge' %}" method="POST">{% csrf_token %}
+			<input onchange="form_checker()" id="buyer_first_name" type="text" name="buyer_first_name" placeholder="{{ lang.first_name }}" required><br>
+			<input onchange="form_checker()" id="buyer_last_name" type="text" name="buyer_last_name" placeholder="{{ lang.last_name }}" required><br>
+			<input onchange="form_checker()" id="buyer_email" type="email" name="buyer_email" placeholder="{{ lang.email }}" required><br>
+			<input onchange="form_checker()" id="buyer_address" type="text" name="buyer_address" placeholder="{{ lang.aadress }}" required><br>
+			<h5>
+				{{ lang.disclaimer|safe|linebreaks }}<br>
+			</h5>
+
+			<label><input onchange="form_checker()" id="mail_list" type="checkbox" name="mail_list"> <sup> {{ lang.discounts_to_email }}</sup></label><br>
+			<label><input onchange="form_checker()" id="license" type="checkbox" required> <sup>{{ lang.terms_conditions }}</sup></label><br>
+
+			<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				data-key="{{ stripe_public_key }}"
+				data-description=""
+				data-amount="{{ request.session.shopping_cart_total_int }}"
+				data-locale="auto">
+			</script>
+			
+			<script type="text/javascript">
+				var errors = {{qty_error}}
+
+				$(".stripe-button-el").attr("disabled","");
+				function form_checker() {
+					if (
+						$("#buyer_first_name").val() != "" && 
+						$("#buyer_last_name").val() != "" && 
+						$("#buyer_email").val() != "" && 
+						$("#buyer_address").val() != "" &&
+
+						$("#license").is(':checked') &&
+						errors.length < 1
+						) {
+							$(".stripe-button-el").removeAttr("disabled");
+					} else {
+						$(".stripe-button-el").attr("disabled","");	
+					} 
+				}
+				
+			</script>
+		</form>
+		
+	</div>
+
+	{% else %}
+	<h3 class="cart_empty">{{ lang.cart_empty }}</h3>
+	{% endif %}
+</div>
+
+
+{% include "navbar/footer.html" %}

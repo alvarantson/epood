@@ -1,0 +1,82 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'checkout.css' %}">
+
+<div class="col-xs-3 charge">
+<a href="/haldus" class="button">Tagasi haldusesse</a><br><br>
+	<h1>Haldus</h1>
+	<br><br>
+	<form method="POST"> {% csrf_token %}
+		<button onclick="loader()" class="button" type="submit" name="submit-btn" value="remove-all-discounts">Eemalda kõik allahindlused</button>
+	</form>
+	<br><br>
+	<form method="POST"> {% csrf_token %}
+		<input type="date" name="discounts-new-date">
+		<button onclick="loader()" class="button" type="submit" name="submit-btn" value="alter-all-discounts-date">Pikenda koiki allahindlusi</button>
+	</form>
+	
+	<br><br>
+	<button type="button" class="button" data-toggle="modal" data-target="#bulk-discounts">
+	  Allahindlused tootekoodide pohjal
+	</button>
+
+	<!-- Modal -->
+<div class="modal fade" id="bulk-discounts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+
+        <form method="POST"> {% csrf_token %}
+        	<textarea name="codes" placeholder="tootekoodid, iga kood uuele reale" rows="10"></textarea>
+        	<br>
+        	<input type="number" name="percentage" placeholder="50">%
+			<input type="date" name="discounts-new-date">
+        	<br><br>
+			<button onclick="loader()" class="button" type="submit" name="submit-btn" value="bulk-add-discounts">Lisa allahindlused</button>
+		</form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="col-xs-9">
+	<h3>Kokku allahindlusi: {{ sales|length }} tk</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>code</th>
+				<th></th>
+				<th>name</th>
+				<th>old price</th>
+				<th>new price</th>
+				<th>%</th>
+				<th>end date</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in sales %}
+			<tr>
+				<td>{{ item.product.code }}</td>
+				<th><a href="/admin/browser/product/{{ item.product.id }}/change/" target="_blank"><i class="fas fa-tools" aria-hidden="true"></i></a></th>
+				<td><a href="/browser/product/{{ item.product.code }}" target="_blank">{{ item.name }}</a></td>
+				<td><strike>{{ item.product.price }}</strike></td>
+				<td>{{ item.product.special_price }}</td>
+				<td>{{ item.product.special_price_percentage }}</td>
+				<td>{{ item.product.special_price_end_date }}</td>
+				<td>
+					<form method="POST"> {% csrf_token %}
+						<input type="hidden" name="code" value="{{ item.product.code }}">
+						<button onclick="loader()" type="submit" name="submit-btn" value="remove-discount"><i class="fas fa-trash-alt"></i></button>
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+
+{% include "navbar/footer.html" %}

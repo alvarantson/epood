@@ -1,0 +1,112 @@
+.intro {
+	height: 25em;
+}
+.intro h2 {
+	margin-top: 3.5em;
+}
+.desktop-navbar-spacer {
+	font-size: 4.9em;
+}
+
+
+.filters {
+	/*border-top: solid 1px var(--border);*/
+	border-bottom: solid 1px var(--border);
+	padding: 1em;
+	text-align: center;
+}
+.filters .button,
+.filters button {
+	margin-top: 1em;
+}
+.filters input {
+	text-align: center;
+	margin-left: .5em;
+	margin-right: .5em;
+	width: 75%;
+}
+
+/* SLIDER */
+.filters .slider-container {
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+.filters form b {
+	margin-right: 2em;
+	margin-left: 2em;
+}
+.filters .slider {
+	width: 100% !important;
+}
+.filters #price-slider-slider .slider-selection {
+	background: var(--blue);
+}
+.filters .boolean {
+	text-align: center;
+}
+.filters .boolean label,
+.filters .boolean input {
+	display: inline-block;
+    vertical-align:middle;
+    text-align: center;
+}
+.filters .boolean label {
+	width: auto;
+	margin-top: 2.5em;
+	font-size: 1.15em;
+}
+.filters .boolean input {
+	width: 1em;
+	margin-top: 0;
+	height: 1em;
+}
+/* CATEGORIES */
+.filters #categories-button {
+	width: 47.5%;
+	transition: width .5s;
+	margin-top: 2em;
+}
+.filters #sub_categories {
+	transition: height 2.5s !important;
+	background-color: var(--blue);
+}
+.filters #categories-button.invert {
+	width: 100%;
+}
+.filters .sub_cat a {
+	color: white;
+}
+.filters .sub_cat div {
+	height: 6em;
+}
+.filters .sub_cat p {
+    margin: auto; /* Important */
+    text-align: center;
+	vertical-align: middle;
+}
+.filters .sub_cat:hover,
+.filters .sub_cat:hover a {
+	color: var(--blue);
+	background-color: white;
+}
+
+
+
+
+
+.paginator {
+	text-align: center;
+	font-size: 1.5em;
+	margin-top: 2em;
+}
+
+.phone-main .sub_cat {
+	text-align: justify;
+	height: 10em;
+	padding-left: 0;
+	padding-right: 0;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+	hyphens: auto;
+}

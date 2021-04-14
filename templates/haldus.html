@@ -1,0 +1,14 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'checkout.css' %}">
+
+<div class="col-xs-12 charge">
+	<h1>Haldus</h1>
+	<br><br>
+	<a class="button" href="/browser/import">Toodete import</a><br><br><br>
+	<a class="button" href="/haldus/discount">Allahindlus</a><br><br><br>
+	<a class="button" href="/haldus/salesstats">Muugistatistika</a><br><br><br>
+</div>
+
+
+{% include "navbar/footer.html" %}

@@ -1,0 +1,32 @@
+<div class="col-xs-6 col-md-3 item"{% if item.product.stock == 0 %} style="opacity: 0.5" {% endif %}>
+    <a href="/browser/product/{{ item.product.code }}">
+        <div class="item-container">
+            <div class="img-container">
+                <img src="{{ item.product.image_url }}">
+            </div>
+            <div class="name-container">
+                <h5 class="name">{{ item.name }}</h5>
+            </div>
+            <div class="bottom-container">
+                {% if item.product.special_price %}
+                <h4 class="price special-price">
+                    €{{ item.product.special_price|floatformat:2 }} <span class="black">|</span>
+                    <strike>€{{ item.product.price|floatformat:2 }}</strike>
+                </h4>
+                Until: {{ item.product.special_price_end_date }}
+                {% else %}
+                <h4 class="price">€{{ item.product.price|floatformat:2 }}</h4>
+                {% endif %}
+                <h4 class="brand">{{ item.product.brand_name }}</h4>
+                <h4 class="stock">{{ item_lang.in_stock }}: {{ item.product.stock }}</h4>
+                <div class="bottom-buttons">
+                    <a href="/browser/categories/{{ item.product.tracking_group }}">
+                        <span class="similar">
+                            {{ item_lang.similar_products }}
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

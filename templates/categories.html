@@ -1,0 +1,18 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+
+
+{% for cat in categories %}
+	<a href="/browser/categories/{{ cat.code }}-"><h2>{{ cat.name }} - {{ cat.code }}</h2></a>
+	<div class="col-xs-12">
+		{% for sub_cat in cat.sub_categories %}
+		<div class="col-xs-3">
+			<a href="/browser/categories/{{ sub_cat.code }}"><h4>{{ sub_cat }}</h4></a>
+		</div>
+		{% endfor %}
+	</div>
+{% endfor %}
+
+
+
+{% include "navbar/footer.html" %}

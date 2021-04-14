@@ -1,0 +1,103 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'product.css' %}">
+
+<div class="col-xs-12 product">
+	<div class="col-xs-12 col-md-5 image-container">
+		<img src="{{ product.product.image_url }}">
+	</div>
+	<div class="col-xs-12 col-md-7 info">
+		<h4 class="additional-info">
+			{{ product.product.code }} -
+			{{ product.product.tracking_group }} - 
+			{{ product.product.EAN }}
+		</h4>
+		<h1>{{ product.name }}</h1>
+		<div class="brand-image">
+			<img src="{{ product.product.brand_image_url }}">
+		</div>
+		<h3>
+			{{ product.description }} <br><br>
+		</h3>
+		<table class="table table-borderless">
+			<tbody>
+				<tr>
+					<td class="icon" scope="row"><i class="fas fa-ruler-horizontal"></i></td>
+					<td class="value">{{ product.product.measurements }}</td>
+					<td class="icon" scope="row"><i class="fas fa-weight"></i></td>
+					<td class="value">{{ product.product.weight }} kg</td>
+				</tr>
+				<tr>
+					<td class="icon" scope="row"><i class="fas fa-box-open"></i></td>
+					<td class="value">{{ product.product.items_in_package }} tk</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="col-xs-12 price">
+			{% if product.product.special_price %}
+			<h3 class="special_price">
+				€{{ product.product.special_price|floatformat:2 }} 
+				<span class="black">|</span>
+				<strike>€{{ product.product.price|floatformat:2 }}</strike>
+			</h3>
+			Until: {{ product.product.special_price_end_date }}
+			{% else %}
+			<h3>€{{ product.product.price|floatformat:2 }}</h3>
+			{% endif %}
+			<h4 class="additional-info">{{ lang.in_stock }}: {{ product.product.stock }}</h4>
+		</div>
+
+		
+	</div>
+	<div class="col-xs-12 bottom">
+		<a href="/browser/categories/{{ product.product.tracking_group }}" class="button invert">
+		    {{ lang.similar_products }}
+		</a> 
+		<a href="1" id="add-to-cart">
+			<button>{{ lang.add_to_cart }}</button>
+		</a>
+		<label>
+			{{ lang.QTY }}:
+			<input type="number" id="qty" value="1" min="1" step="1" onchange="qty()" max="{{ product.product.stock }}">
+		</label>
+	</div>
+</div>
+
+<h3>{{ lang.similar_products }}</h3>
+
+
+
+
+
+
+<script type="text/javascript">
+
+function qty() {
+	if ($("#qty").val() > {{ product.product.stock }}) {$("#qty").val('{{ product.product.stock }}')};
+	$("#add-to-cart").attr("href", "/checkout/add/{{ product.product.code }}/"+$("#qty").val());
+};
+
+qty();
+
+</script>
+
+
+
+
+
+
+
+
+<div class="col-xs-12 similar_products">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'items.css' %}">
+	{% for item in similar_products %}
+		{% include "item.html" %}
+	{% endfor %}
+</div>
+
+
+
+{% include "navbar/footer.html" %}

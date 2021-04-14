@@ -1,0 +1,22 @@
+h2 {
+	text-align: center;
+	color: gray;
+}
+
+.desktop-navbar-spacer {
+	font-size: 4.9em;
+}
+
+
+
+
+.top-sales {
+	height: 45em;
+	font-weight: 100 !important;
+}
+.top-sales h2 {
+	margin-top: 7.5em;
+}
+.top-sales h3 {
+	margin-right: 20em;
+}
