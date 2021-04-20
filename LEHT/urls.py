@@ -34,21 +34,21 @@ urlpatterns = [
         ),
         name="favicon"
     ),
-    url(r'^sitemaps.xml$',
+    path('sitemaps.xml',
         RedirectView.as_view( # the redirecting function
             url=staticfiles_storage.url('sitemaps.xml'), # converts the static directory + our favicon into a URL
             # in my case, the result would be http://www.tumblingprogrammer.com/static/img/favicon.ico
         ),
         name="favicon" # name of our view
     ),
-    url(r'^sitemap.xml$',
+    path('sitemap.xml',
         RedirectView.as_view( # the redirecting function
             url=staticfiles_storage.url('sitemaps.xml'), # converts the static directory + our favicon into a URL
             # in my case, the result would be http://www.tumblingprogrammer.com/static/img/favicon.ico
         ),
         name="favicon" # name of our view
     ),
-    url(r'^robots.txt$',
+    path('robots.txt',
         RedirectView.as_view( # the redirecting function
             url=staticfiles_storage.url('robots.txt'), # converts the static directory + our favicon into a URL
             # in my case, the result would be http://www.tumblingprogrammer.com/static/img/favicon.ico

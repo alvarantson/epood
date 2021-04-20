@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from checkout.views import init_cart
-from .models import Lang
+from .models import Lang, Navbar_lang
 from browser.models import Category
 
 # Create your views here.
@@ -39,6 +39,15 @@ def init_lang(request):
 				"code": nav_cat.code
 				})
 
+	nav_lang = Navbar_lang.objects.get(lang__lang=request.session["lang"])
+	request.session["navbar_lang"] = {
+	'index':nav_lang.index,
+	'categories':nav_lang.categories,
+	'browse':nav_lang.browse,
+	'checkout':nav_lang.checkout,
+	'empty_cart':nav_lang.empty_cart,
+	'cart_is_empty':nav_lang.cart_is_empty
+	}
 
 	return request
 

@@ -91,17 +91,17 @@
 			<div class="col-xs-8 right">
 				<a href="/">
 					<span>
-						INDEX
+						{{ request.session.navbar_lang.index|upper }}
 					</span>
 				</a>
 				<a id="desktop-navbar-categories">
 					<span>
-						CATEGORIES
+						{{ request.session.navbar_lang.categories|upper }}
 					</span>
 				</a> 
 				<a href="/browser">
 					<span>
-						BROWSE
+						{{ request.session.navbar_lang.browse|upper }}
 					</span>
 				</a> 
 				
@@ -148,10 +148,10 @@
 				</div>
 				<div class="col-xs-12 buttons">
 					<a href="/checkout" class="button">
-						CHECKOUT
+						{{ request.session.navbar_lang.checkout|upper }}
 					</a> 
 					<a href="/checkout/empty" class="button invert">
-						EMPTY CART
+						{{ request.session.navbar_lang.empty_cart|upper }}
 					</a> 
 				</div>	
 			</div>
@@ -218,14 +218,14 @@
 		<div class="col-xs-12">
 			<h3><a href="/">
 				<span>
-					INDEX
+					{{ request.session.navbar_lang.index|upper }}
 				</span>
 			</a></h3>
 		</div>
 		<div class="col-xs-12">
 			<h3><a data-toggle="collapse" data-target="#phone-navbar-categories">
 				<span>
-					CATEGORIES
+					{{ request.session.navbar_lang.categories|upper }}
 				</span>
 			</a> </h3>
 		</div>
@@ -241,7 +241,7 @@
 		<div class="col-xs-12">
 			<h3><a href="/browser">
 				<span>
-					BROWSE
+					{{ request.session.navbar_lang.browse|upper }}
 				</span>
 			</a> </h3>
 		</div>
@@ -307,14 +307,14 @@
 	</div>
 	<div class="col-xs-12 buttons">
 		<a href="/checkout" class="button">
-			CHECKOUT
+			{{ request.session.navbar_lang.checkout|upper }}
 		</a> 
 		<a href="/checkout/empty" class="button invert">
-			EMPTY CART
+			{{ request.session.navbar_lang.empty_cart|upper }}
 		</a> 
 	</div>	
 	{% else %}
-	<h3>Cart is currently empty..</h3>
+	<h3>{{ request.session.navbar_lang.cart_is_empty|upper }}</h3>
 	{% endif %}
 				
 	</div>
