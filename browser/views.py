@@ -108,7 +108,10 @@ def browser(request, main_cat = None, cat = None):
 		'sub_categories': sub_categories,
 		'lang': Browser_lang.objects.get(lang=Lang.objects.get(lang=request.session["lang"])),
 		'item_lang': Item_lang.objects.get(lang=Lang.objects.get(lang=request.session["lang"])),
-		'contact':Contact.objects.first()
+		'contact':Contact.objects.first(),
+		'title': "tooted",
+		'description': "Vire e-kaubamaja toodete otsing!",
+		'tags': ",".join(["auto","varuosad","auto varuosad","bmw","audi","skoda", "Fixus", "Emart Auto", "autokaubad", "matkakaubad", "tööriistad", "jalgrattad", "tarvikud", "kodukaubad", "aiakaubad","vaba aeg","õli","aknapesu vedelik", "Motoral"])
 		})
 
 
@@ -180,7 +183,10 @@ def product(request, code = None):
 		"similar_products": similar_products,
 		'lang': Item_lang.objects.get(lang=Lang.objects.get(lang=request.session["lang"])),
 		'item_lang': Item_lang.objects.get(lang=Lang.objects.get(lang=request.session["lang"])),
-		'contact':Contact.objects.first()
+		'contact':Contact.objects.first(),
+		'title': product.name,
+		'description': product.description,
+		'tags': ",".join([product.name.replace(" ",",")]+["auto","varuosad","auto varuosad","bmw","audi","skoda", "Fixus", "Emart Auto", "autokaubad", "matkakaubad", "tööriistad", "jalgrattad", "tarvikud", "kodukaubad", "aiakaubad","vaba aeg","õli","aknapesu vedelik", "Motoral"])
 		})
 
 

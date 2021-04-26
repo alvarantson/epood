@@ -21,5 +21,8 @@ def index(request):
 		'sales': sales,
 		"featured": featured,
 		'item_lang': Item_lang.objects.get(lang=Lang.objects.get(lang=request.session["lang"])),
-		'contact':Contact.objects.first()
+		'contact':Contact.objects.first(),
+		'title': "front page",
+		'description': "Vire e-kaubamaja varuosadele ja tarvikutele!",
+		'tags': ",".join(["auto","varuosad","auto varuosad","bmw","audi","skoda", "Fixus", "Emart Auto", "autokaubad", "matkakaubad", "tööriistad", "jalgrattad", "tarvikud", "kodukaubad", "aiakaubad","vaba aeg","õli","aknapesu vedelik", "Motoral"])
 		})

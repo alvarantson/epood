@@ -96,7 +96,10 @@ def checkout(request):
 		'stripe_public_key': Stripe_key.objects.all()[0].public_key,
 		'qty_error': qty_error,
 		'lang': Checkout_lang.objects.get(lang=Lang.objects.get(lang=request.session["lang"])),
-		'contact':Contact.objects.first()
+		'contact':Contact.objects.first(),
+		'title': "checkout",
+		'description': "Vire e-kaubamaja ostukorv!",
+		'tags': ",".join(["auto","varuosad","auto varuosad","bmw","audi","skoda", "Fixus", "Emart Auto", "autokaubad", "matkakaubad", "tööriistad", "jalgrattad", "tarvikud", "kodukaubad", "aiakaubad","vaba aeg","õli","aknapesu vedelik", "Motoral"])
 		})
 
 
@@ -223,7 +226,10 @@ def charge(request): # https://testdriven.io/blog/django-stripe-tutorial/
 
 		return render(request, 'charge.html', {
 			"receipt":buy_history.receipt,
-			'contact':Contact.objects.first()
+			'contact':Contact.objects.first(),
+			'title': "receipt",
+			'description': "Vire e-kaubamaja ostutsekk!",
+			'tags': ",".join(["auto","varuosad","auto varuosad","bmw","audi","skoda", "Fixus", "Emart Auto", "autokaubad", "matkakaubad", "tööriistad", "jalgrattad", "tarvikud", "kodukaubad", "aiakaubad","vaba aeg","õli","aknapesu vedelik", "Motoral"])
 			})
 
 
