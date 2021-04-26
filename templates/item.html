@@ -19,7 +19,7 @@
                 </h4>
                 Until: {{ item.product.special_price_end_date }}
                 {% else %}
-                <h4 class="price">€{{ item.product.price|floatformat:2 }}</h4>
+                <h4 class="price">€{{ item.product.price|floatformat:2 }}<br></h4>
                 {% endif %}
                 <h4 class="brand">{{ item.product.brand_name }}</h4>
                 <h4 class="stock">{{ item_lang.in_stock }}: {{ item.product.stock }}</h4>
