@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
+import unicodedata
 
 from .models import Product, Product_lang, Category, Browser_lang, Item_lang
 from navbar.models import Lang, Contact
@@ -8,6 +9,11 @@ from .import_motoral_from_api import import_motoral, import_motoral_categories
 from navbar.views import init_lang
 from django.db.models import Q
 # Create your views here.
+
+# õüöä non ascii char fix
+# https://www.javaer101.com/en/article/17189410.html
+def remove_diacritics(value):
+     return unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
 
 def reset_product_filters(request):
 	request.session["product_filters"] = {}
@@ -20,6 +26,8 @@ def browser(request, main_cat = None, cat = None):
 	request = init_lang(request)
 	product_list = Product_lang.objects.filter(lang=Lang.objects.get(lang="et"))
 	sub_categories = None
+	SEO_tags = []
+
 
 	try:
 		request.session["product_filters"] = request.session["product_filters"]
@@ -27,24 +35,55 @@ def browser(request, main_cat = None, cat = None):
 		request = reset_product_filters(request)
 
 	# FILTERING
+	if request.session["product_filters"]:
+
+
+		try: 
+			if request.session["product_filters"]["product_name"] != "":
+				product_list = product_list.filter(name__contains = remove_diacritics(request.session["product_filters"]["product_name"]))
+		except:
+			pass
+
+		try: 
+			if request.session["product_filters"]["product_code"] != "":
+				product_list = product_list.filter(product__code__contains = remove_diacritics(request.session["product_filters"]["product_code"]))
+		except:
+			pass
+
+
+		try: 
+			if request.session["product_filters"]["brand_name"] != "":
+				product_list = product_list.filter(product__brand_name__contains = remove_diacritics(request.session["product_filters"]["brand_name"]))
+		except:
+			pass
+		
+		try:
+			if request.session["product_filters"]["discounts_boolean"]:
+				product_list = product_list.filter(~Q(product__special_price_end_date=None))
+				request.session["product_filters"]["discounts_boolean"] = True
+		except:
+			request.session["product_filters"]["discounts_boolean"] = False
+
+	# FILTER FORM FILTERING
 	if request.POST:
 
 		if request.POST["product_name"] != "":
+			print(request.POST["product_name"])
 			request.session["product_filters"]["product_name"] = request.POST["product_name"]
-			product_list = product_list.filter(name__contains = request.POST["product_name"])
+			product_list = product_list.filter(name__contains = remove_diacritics(request.POST["product_name"]))
 		else:
 			request.session["product_filters"]["product_name"] = ""
 
 
 		if request.POST["product_code"] != "":
 			request.session["product_filters"]["product_code"] = request.POST["product_code"]
-			product_list = product_list.filter(product__code__contains=request.POST["product_code"])
+			product_list = product_list.filter(product__code__contains = remove_diacritics(request.POST["product_code"]))
 		else:
 			request.session["product_filters"]["product_code"] = ""
 
 		if request.POST["brand_name"] != "":
 			request.session["product_filters"]["brand_name"] = request.POST["brand_name"]
-			product_list = product_list.filter(product__brand_name__contains = request.POST["brand_name"])
+			product_list = product_list.filter(product__brand_name__contains = remove_diacritics(request.POST["brand_name"]))
 		else:
 			request.session["product_filters"]["brand_name"] = ""
 
