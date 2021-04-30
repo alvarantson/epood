@@ -43,7 +43,7 @@
         <div class="col-xs-12 boolean">
             <label for="discounts_boolean">
                 <input id="discounts_boolean" type="checkbox" name="discounts_boolean" {% if request.session.product_filters.discounts_boolean %}checked{% endif %}>
-                Sooduskaubad ainult</input>
+                {{ lang.discounts_only }}</input>
             </label>
         </div>
 

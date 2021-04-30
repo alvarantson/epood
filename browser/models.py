@@ -10,6 +10,7 @@ class Browser_lang(models.Model):
 	product_code = models.CharField(max_length=999, blank=True)
 	brand_name = models.CharField(max_length=999, blank=True)
 	sub_categories = models.CharField(max_length=999, blank=True)
+	discounts_only = models.CharField(max_length=999, blank=True)
 
 	search = models.CharField(max_length=999, blank=True)
 	reset_filters = models.CharField(max_length=999, blank=True)
