@@ -53,5 +53,5 @@ def init_lang(request):
 
 
 def change_lang(request, lang):
-	request.session["lang"] = "et"
+	request.session["lang"] = lang
 	return HttpResponseRedirect(request.META['HTTP_REFERER'])
