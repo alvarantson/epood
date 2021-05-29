@@ -1,0 +1,45 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'checkout.css' %}">
+
+<div class="col-xs-12" style="text-align: center;">
+	<form method="POST"> {% csrf_token %}
+		<br><br>
+		<input type="text" name="CLIENT_NAME" placeholder="CLIENT_NAME">
+		<input type="text" name="CLIENT_ADDRESS" placeholder="CLIENT_ADDRESS">
+		<br>
+		<input type="text" name="FILLER_NAME" placeholder="FILLER_NAME">
+		<input type="text" name="FILLER_ADDRESS" placeholder="FILLER_ADDRESS">
+		<br><br><br>
+
+		<input type="text" name="ORDER" placeholder="ORDER">
+		<input type="text" name="ORDER_ID" placeholder="ORDER_ID">
+		<br>
+		<input type="date" name="ORDER_DATE" placeholder="ORDER_DATE"> ORDER_DATE
+		<br><br><br>
+		<input type="date" name="DATE" placeholder="DATE"> DATE
+		<br>
+		<input type="date" name="DEADLINE" placeholder="DEADLINE"> DEADLINE
+		<br>
+		<input type="text" name="DEADLINE_LENGTH" placeholder="DEADLINE_LENGTH">
+		<br><br>
+		maksemeetod, summa
+		<br>
+		<textarea style="width: 50%" cols="7" name="METHODS" placeholder="maksemeetod, summa"></textarea>
+		<br><br>
+		asi, Al.%, Hind, Kogus, Reasumma
+		<br>
+		<textarea style="width: 50%" cols="7" name="CONTENT" placeholder="asi, Al.%, Hind, Kogus, Reasumma"></textarea>
+		<br><br>
+		<input type="text" name="VAT" placeholder="VAT">
+		<input type="text" name="TOTAL_WITHOUT_VAT" placeholder="TOTAL_WITHOUT_VAT">
+		<input type="text" name="ROUNDING" placeholder="ROUNDING">
+		<input type="text" name="TOTAL_PRICE" placeholder="TOTAL_PRICE">
+		<br><br>
+		<button type="submit" name="submit-btn" value="generate-invoice">GENEREERI</button>
+		<br><br>
+	</form>
+</div>
+
+
+{% include "navbar/footer.html" %}

@@ -28,6 +28,7 @@ urlpatterns = [
     path('browser/', include('browser.urls')),
     path('navbar/', include('navbar.urls')),
     path('haldus/', include('haldus.urls')),
+    path('arved/', include('arved.urls')),
     path('favicon.ico',
         RedirectView.as_view(
             url=staticfiles_storage.url('favicon.ico'),

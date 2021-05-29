@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'navbar',
     'browser',
     'haldus',
+    'arved',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
